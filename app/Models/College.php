@@ -2,26 +2,26 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class College extends Model
 {
-    use HasFactory;
-    protected $fillable = ['collfullname', 'collshortname'];
+    protected $table = 'colleges';
+    protected $primaryKey = 'collid';
+
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'studcollid', 'collid');
+    }
 
     public function departments()
     {
-        return $this->hasMany(Department::class);
+        return $this->hasMany(Department::class, 'deptcollid', 'collid');
     }
 
     public function programs()
     {
-        return $this->hasMany(Program::class);
-    }
-    
-    public function students()
-    {
-        return $this->hasMany(Student::class);
+        return $this->hasMany(Program::class, 'progcollid', 'collid');
     }
 }
+

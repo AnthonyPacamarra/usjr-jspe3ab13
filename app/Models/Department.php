@@ -2,21 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model
 {
-    use HasFactory;
-    protected $fillable = ['deptfullname', 'deptshortname'];
+    protected $table = 'departments';
+    protected $primaryKey = 'deptid';
 
-    public function colleges()
+    public function college()
     {
-        return $this->belongsToMany(College::class);
+        return $this->belongsTo(College::class, 'deptcollid', 'collid');
     }
 
     public function programs()
     {
-        return $this->hasMany(Program::class);
+        return $this->hasMany(Program::class, 'progcollid', 'collid');
     }
 }
+

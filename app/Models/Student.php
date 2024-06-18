@@ -2,16 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
-    use HasFactory;
-    protected $fillable = ['progfullname', 'progshortname'];
+    protected $table = 'students';
+    protected $primaryKey = 'studid';
 
-    public function colleges()
+    public function college()
     {
-        return $this->belongsTo(College::class);
+        return $this->belongsTo(College::class, 'studcollid', 'collid');
+    }
+
+    public function program()
+    {
+        return $this->belongsTo(Program::class, 'studprogid', 'progid');
     }
 }
